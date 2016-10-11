@@ -26,12 +26,12 @@ public class OrdersDAOImpl implements OrdersDAO {
     }
 
     @Override
-    public void addNewOrder(CurrencyType currency, double amount, OperationType operationType, String contacts) {
+    public void addNewOrder(Orders orders, CurrencyType currency) {
         Session session = this.sessionFactory.getCurrentSession();
-        Orders orders = new Orders(amount, operationType);
+//        Orders orders = new Orders(amount, operationType);
         orders.setStatus(Status.OPEN);
         orders.setDate(new Date());
-        orders.setContacts(contacts);
+//        orders.setContacts(contacts);
         Currency currency1 = (Currency) sessionFactory.getCurrentSession().createQuery("from Currency where date=  :date and currency= :cur").setDate("date", new Date()).setString("cur", currency.name()).list().get(0);
         orders.setCurrency(currency1);
         session.persist(orders);
@@ -46,5 +46,11 @@ public class OrdersDAOImpl implements OrdersDAO {
         query.setString(2, currencyType.name());
         List list = query.list();
         return list;
+    }
+
+    @Override
+    public String getContactsByOrderId(int id) {
+        return (String) sessionFactory.getCurrentSession().createQuery("select orders.contacts from Orders orders where orderId= :id").setInteger("id", id).list().get(0);
+
     }
 }

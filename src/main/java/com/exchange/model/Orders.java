@@ -19,21 +19,20 @@ public class Orders implements Serializable {
 
     }
 
-    public Orders(double amount, Currency currency, OperationType operationType) {
+    public Orders(double amount, OperationType operationType, String contacts) {
         this.amount = amount;
-        this.currency = currency;
         this.operationType = operationType;
-
+        this.contacts = contacts;
     }
 
-    public Orders(double amount, Currency currency, OperationType operationType, Date date, Status status, int orderId,String contacts) {
+    public Orders(double amount, Currency currency, OperationType operationType, Date date, Status status, int orderId, String contacts) {
         this.amount = amount;
         this.currency = currency;
         this.operationType = operationType;
         this.date = date;
         this.status = status;
         this.orderId = orderId;
-        this.contacts=contacts;
+        this.contacts = contacts;
 
 
     }
@@ -54,7 +53,7 @@ public class Orders implements Serializable {
     Date date;
 
     @Column(name = "Contacts")
-   private String contacts;
+    private String contacts;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "Status")

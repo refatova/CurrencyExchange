@@ -27,13 +27,19 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void addNewOrder(CurrencyType currency, double amount, OperationType operationType,String contacts) {
-        ordersDAO.addNewOrder(currency,amount,operationType,contacts);
+    public void addNewOrder(Orders orders, CurrencyType currency) {
+        ordersDAO.addNewOrder(orders, currency);
     }
 
     @Override
     @Transactional
     public List<Orders> getOrder(CurrencyType currencyType, OperationType operationType) {
-        return ordersDAO.getOrder(currencyType,operationType);
+        return ordersDAO.getOrder(currencyType, operationType);
+    }
+
+    @Override
+    @Transactional
+    public String getContactsByOrderId(int id) {
+        return ordersDAO.getContactsByOrderId(id);
     }
 }

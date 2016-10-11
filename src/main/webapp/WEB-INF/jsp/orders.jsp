@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <script src="jquery-1.12.4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <title>Orders</title>
     <style type="text/css">
         body {
@@ -21,9 +21,7 @@
         }
     </style>
 
-    <script>
-        $
-    </script>
+
 </head>
 <body>
 <table>
@@ -52,17 +50,34 @@
                 <c:out value="${orders.getOperationType()}"></c:out>
             </td>
             <td>
-                <input type="button" value="Show" name="submit" onclick='document.getElementById("div").style.display="block";
-document.getElementsByName("submit").style.visibility = "hidden";'>
-                <div style='display:none' id="div"><c:out value="${orders.getContacts()}"></c:out></div>
+                <input type="button" value="Show" name="${orders.getOrderId()}" class="contacts"/>
+                <div class="contactField">
+                    <%--<c:out value="${orders.getContacts()}"></c:out>--%>
+                </div>
             </td>
-                <%--<td>--%>
-                <%--<c:set var="sell" value="${currency.getSell()}"/>--%>
-                <%--<fmt:formatNumber value="${sell}" maxFractionDigits="3"/></td>--%>
         </tr>
     </c:forEach>
 
 </table>
+<script>
 
+
+$(".contacts").click(function() {
+    var id=$(this).attr("name");
+    var button=$(this)
+
+    $.ajax({
+        type:'get',
+        url: '/api/contacts',
+        data:{'id':id},
+        success: function (data) {
+            console.log(button);
+            button.next().html(data);
+            $(button).hide();
+        }});
+});
+
+
+</script>
 </body>
 </html>

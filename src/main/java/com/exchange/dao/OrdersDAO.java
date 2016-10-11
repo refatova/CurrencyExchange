@@ -10,6 +10,9 @@ import java.util.List;
  * Created by Saniye on 04.10.16.
  */
 public interface OrdersDAO {
-    public void addNewOrder(CurrencyType currency,double amount, OperationType operationType,String contacts);
+    public void addNewOrder(Orders orders, CurrencyType currency);
+
     public List<Orders> getOrder(CurrencyType currencyType, OperationType operationType);
+
+    public String getContactsByOrderId(int id);
 }
